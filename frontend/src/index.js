@@ -6,7 +6,7 @@ import App from './App';
 import HomePage from './pages/landing_page/home/HomePage';
 import SignUp from './pages/landing_page/signup/SignUp';
 import SupportPage from './pages/landing_page/supports/SupportPage';
-import Pricing from './pages/landing_page/home/Pricing';
+import PricingPage from './pages/landing_page/pricing/PricingPage';
 import ProductPage from './pages/landing_page/products/ProductPage';
 import AboutPage from './pages/landing_page/about/AboutPage';
 import Navbar from './pages/landing_page/Navbar';
@@ -21,7 +21,7 @@ root.render(
   <Route path='/' element={<HomePage/>}/>
   <Route path='/signup' element={<SignUp/>}/>
   <Route path='/support' element={<SupportPage/>}/>
-  <Route path='/pricing' element={<Pricing/>}/>
+  <Route path='/pricing' element={<PricingPage/>}/>
   <Route path='/product' element={<ProductPage/>}/>
   <Route path='/about' element={<AboutPage/>}/>
   <Route path='*' element={<NotFound/>}/>

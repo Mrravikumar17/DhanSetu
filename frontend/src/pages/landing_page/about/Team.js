@@ -8,7 +8,7 @@ function Team() {
 
                 <div className='col-6  p-5 text-center'>
 
-                    <img src='assets/nithinKamath.jpg' alt='eco' style={{ width: "50%", borderRadius: '100%' }} />
+                    <img src='assets/profile-removebg-preview.png'  alt='eco' style={{ width: "50%", borderRadius: '100%'  }} />
                     <h1 className='mt-2'>Mr. Ravi Kumar</h1>
                     <p className='text-muted'>Founder, CEO</p>
                 </div>

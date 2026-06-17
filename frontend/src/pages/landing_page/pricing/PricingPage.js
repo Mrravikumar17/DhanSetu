@@ -1,13 +1,16 @@
 import React from 'react';
+import Hero from './Hero';
+import Brokerage from './Brokerage'
+import OpenAccount from '../OpenAccount'
 
-function Pricing() {
+function PricingPage() {
     return (
-        <div>
-            <h1>
-                Hello
-            </h1>
-        </div>
+        <>
+          <Hero/>  
+          <Brokerage/>
+          <OpenAccount/>
+        </>
     );
 }
 
-export default Pricing;
+export default PricingPage;
