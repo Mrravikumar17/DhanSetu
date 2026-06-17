@@ -1,8 +1,9 @@
+import HomePage from "./pages/landing_page/home/HomePage";
 
 function App() {
   return (
     <div className="App">
-     <h1>Welcome to Zerodha Clone</h1>
+      <HomePage/>
     </div>
   );
 }
