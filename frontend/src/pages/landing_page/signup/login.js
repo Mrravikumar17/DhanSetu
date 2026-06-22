@@ -4,16 +4,15 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignUp = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
-    username: "",
   });
   
-  const { email, password, username } = inputValue;
+  const { email, password } = inputValue;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +29,7 @@ const SignUp = () => {
 
   const handleSuccess = (msg) =>
     toast.success(msg, {
-      position: "bottom-right", // Kept your original placement
+      position: "bottom-left",
     });
 
   const handleSubmit = async (e) => {
@@ -39,25 +38,18 @@ const SignUp = () => {
 
     try {
       // Best Practice: Use environment variables for API URLs in production
-      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3002";
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:4000";
       
       const { data } = await axios.post(
-        `${apiUrl}/signup`,
+        `${apiUrl}/login`,
         { ...inputValue },
         { withCredentials: true }
       );
-      
 
       const { success, message } = data;
 
       if (success) {
         handleSuccess(message);
-        // Clear all fields on successful signup
-        setInputValue({
-          email: "",
-          password: "",
-          username: "",
-        });
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -68,16 +60,21 @@ const SignUp = () => {
       // Fallback error handling if the server is unreachable
       const errorMsg = error.response?.data?.message || "Something went wrong. Please try again.";
       handleError(errorMsg);
-      console.error("Signup Error:", error);
+      console.error("Login Error:", error);
     } finally {
       setIsLoading(false);
+      // Optional: Usually better UX to clear password but keep email on failure
+      setInputValue((prevState) => ({
+        ...prevState,
+        password: "", 
+      }));
     }
   };
 
   return (
-    <div className="container min-vh-100 d-flex justify-content-center align-items-center bg-light">
-      <div className="card shadow-sm p-4 w-100" style={{ maxWidth: "450px" }}>
-        <h2 className="text-center mb-4 fw-bold">Create Account</h2>
+    <div className="container min-vh-100 d-flex justify-content-center align-items-center bg-light my-5">
+      <div className="card shadow-sm p-4 w-100" style={{ maxWidth: "400px" }}>
+        <h2 className="text-center mb-4 fw-bold">Login</h2>
         
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
@@ -97,23 +94,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Username Field */}
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label fw-semibold">
-              Username
-            </label>
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              id="username"
-              name="username"
-              value={username}
-              placeholder="Choose a username"
-              onChange={handleOnChange}
-              required
-            />
-          </div>
-
           {/* Password Field */}
           <div className="mb-4">
             <label htmlFor="password" className="form-label fw-semibold">
@@ -125,10 +105,9 @@ const SignUp = () => {
               id="password"
               name="password"
               value={password}
-              placeholder="Create a password"
+              placeholder="Enter your password"
               onChange={handleOnChange}
               required
-              minLength="6" // Production practice: enforce a minimum length
             />
           </div>
 
@@ -141,7 +120,7 @@ const SignUp = () => {
             {isLoading ? (
               <>
                 <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Signing up...
+                Logging in...
               </>
             ) : (
               "Submit"
@@ -150,9 +129,9 @@ const SignUp = () => {
 
           {/* Footer Link */}
           <div className="text-center text-muted mt-3">
-            Already have an account?{" "}
-            <Link to="/login" className="text-decoration-none fw-semibold">
-              Login here
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-decoration-none fw-semibold">
+              Signup here
             </Link>
           </div>
         </form>
@@ -163,4 +142,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
